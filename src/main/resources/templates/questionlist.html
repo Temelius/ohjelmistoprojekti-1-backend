@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Kysely</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+    th:href="@{css/bootstrap.min.css}">
+</head>
+
+<body>
+	<div class="container">
+	<br>
+		<h1 class ="text-center">Työnhakijan osaamista kartoittava kysely</h1>
+		<table class="table table-striped">
+		
+		<br>
+		<h6>Valitse seuraavista yksi parhaiten osaamistasi kuvaava taso: 1 = perustaso, 3 = hyvä taso tai 5 = erinomainen taso.</h6>
+		<br>
+			<tr th:each="question : ${questions}">
+				<td th:text="${question.questionLine}"></td>
+    		</tr>
+		</table>
+		<form>
+  <input type="radio" id="question1" name="question1" value="question1">
+  <label for="question1">1 Teen tehtäviäni yleensä sitä mukaa, kun niitä ilmestyy</label><br>
+  <input type="radio" id="question2" name="question1" value="question1">
+  <label for="question2">3 Teen yleensä töistäni aikataulun, jota pyrin noudattamaan</label><br>
+  <input type="radio" id="question3" name="question1" value="question1">
+  <label for="question3">5 Suunittelen ja priorisoin säännöllisesti työtehtäviäni keskittyen olennaiseen</label>
+</form> 
+	</div>
+</body>
+</html>
