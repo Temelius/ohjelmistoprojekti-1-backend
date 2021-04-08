@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.temelius.ohjelmistoprojekti1.model.Question;
 import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
 
+
 @Controller
 
 public class QuestionController {
+	
 	@Autowired
 	private QuestionRepository qrepository;
+	
+	
 
 	// Show all questions
 	@RequestMapping(value = { "/", "/questionlist" })
@@ -38,4 +42,6 @@ public class QuestionController {
 	public @ResponseBody Optional<Question> findQuestionRest(@PathVariable("id") Long id) {
 		return qrepository.findById(id);
 	}
+	
+	
 }

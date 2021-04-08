@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface QuestionRepository extends CrudRepository<Question, Long> {
 	
-	List<Question>findByQuestionLine(String questionLine);
+	List<Question>findByQuestionline(String questionline);
 
 }

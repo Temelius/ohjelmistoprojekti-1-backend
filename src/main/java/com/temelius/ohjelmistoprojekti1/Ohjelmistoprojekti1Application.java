@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import com.temelius.ohjelmistoprojekti1.model.Question;
 import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
+import com.temelius.ohjelmistoprojekti1.model.Answers;
+import com.temelius.ohjelmistoprojekti1.model.AnswerRepository;
 
 @SpringBootApplication
 public class Ohjelmistoprojekti1Application {
@@ -19,16 +21,24 @@ public class Ohjelmistoprojekti1Application {
 	}
 	
 	@Bean
-	public CommandLineRunner questionDemo(QuestionRepository qrepository) {
+	public CommandLineRunner questionDemo(QuestionRepository qrepository, AnswerRepository arepository) {
 		return (args) -> {
 			
-			log.info("save a quesion");
-			Question question1 = new Question("Ajan ja tehtävien hallinta");
-			qrepository.save(question1);
+			log.info("save a question");
+			qrepository.save(new Question("Mitä kuuluu?"));
+			qrepository.save(new Question("Mistä tuut?"));
 			
-			log.info("fetch all questions");
+			arepository.save(new Answers("Kukkuluuruu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answers("kakkapuu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answers("Keuruult", qrepository.findByQuestionline("Mistä tuut?").get(0)));
+
+			log.info("fetch all questions and answers in db");
 			for (Question question : qrepository.findAll( )) {
 				log.info(question.toString());
+				for (Answers answers : arepository.findAll( )) {
+					log.info(answers.toString());
+					
+				}
 			}
 		};
 	}
