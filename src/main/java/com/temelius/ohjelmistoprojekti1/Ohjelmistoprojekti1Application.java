@@ -28,9 +28,10 @@ public class Ohjelmistoprojekti1Application {
 			qrepository.save(new Question("Mitä kuuluu?"));
 			qrepository.save(new Question("Mistä tuut?"));
 			
-			arepository.save(new Answers("Kukkuluuruu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
-			arepository.save(new Answers("kakkapuu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
-			arepository.save(new Answers("Keuruult", qrepository.findByQuestionline("Mistä tuut?").get(0)));
+			arepository.save(new Answers("Kukkuluuruu", 0, qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answers("kakkapuu", 0, qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answers("Keuruult", 0, qrepository.findByQuestionline("Mistä tuut?").get(0)));
+			arepository.save(new Answers("Turuust", 0, qrepository.findByQuestionline("Mistä tuut?").get(0)));
 
 			log.info("fetch all questions and answers in db");
 			for (Question question : qrepository.findAll( )) {

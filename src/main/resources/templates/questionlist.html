@@ -3,26 +3,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Kysely</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
-    th:href="@{css/bootstrap.min.css}">
+<title>Kysely</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}">
 </head>
 
 <body>
-<div>
-		<table class="rounded table table-dark table-sm">
+	<div>
 
-			<tr th:each="question : ${questions}">
+<table class="rounded table table-dark table-sm">
+    <th:block th:each="question : ${questions}">
+               <td th:text="${question.questionline}"></td>
+            <tr th:each="answer: ${question.answers}">
+                <td th:text="${answer.answerline}"></td>
+                <td th:text="${answer.answercount}"></td>
+                <td> <a th:href="@{/saveanswer/{id}(id=${answer.answerid})}" >select</a></td>
+            </tr>
+       
+    </th:block>
+</table>
 
-				<td th:text="${question.questionline}"></td>
-				
-				<td th:text="${question.answers}"></td>
-				
-				</tr>
-				
-		</table>
-		
+
+
+
+
 	</div>
 </body>
 </html>
