@@ -45,8 +45,14 @@ public class QuestionController {
 	
 	// Get specific quiz, questions and answers
 	@GetMapping(value="/quiz/{id}")
-	public @ResponseBody List<Quiz> quizRest(@PathVariable("id") Long id) {
-		return quizRepository.findByQuizId(id);
+	public @ResponseBody Optional<Quiz> quizRest(@PathVariable("id") Long id) {
+		return quizRepository.findById(id);
+	}
+	
+	// Get all quizzes
+	@GetMapping(value="/quizzes")
+	public @ResponseBody List<Quiz> getAllQuizzes() {
+		return (List<Quiz>) quizRepository.findAll();
 	}
 	
 	
