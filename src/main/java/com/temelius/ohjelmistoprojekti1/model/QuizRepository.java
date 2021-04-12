@@ -6,6 +6,5 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 public interface QuizRepository extends CrudRepository<Quiz, Long> {
-	List<Quiz> findByQuizId(Long quizId);
 	List<Quiz> findByQuizName(String name);
 }
