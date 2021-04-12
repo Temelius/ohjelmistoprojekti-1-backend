@@ -17,7 +17,6 @@ public class Answers {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long answerid;
     private String answerline;
-    private int answercount;
     
     @ManyToOne
     @JsonIgnore
@@ -26,10 +25,9 @@ public class Answers {
     
     public Answers() {}
     
-    public Answers(String answerline, int answercount, Question question) {
+    public Answers(String answerline, Question question) {
     	super();
     	this.answerline = answerline;
-    	this.answercount = answercount;
     	this.question = question;
     }
 
@@ -49,14 +47,6 @@ public class Answers {
 		this.answerline = answerline;
 	}
 
-	public int getAnswercount() {
-		return answercount;
-	}
-
-	public void setAnswercount(int answercount) {
-		this.answercount = answercount;
-	}
-
 	public Question getQuestion() {
 		return question;
 	}
@@ -67,7 +57,7 @@ public class Answers {
 
 	@Override
 	public String toString() {
-		return answerline + " - " + answercount;
+		return answerline;
 	}
 
 	
