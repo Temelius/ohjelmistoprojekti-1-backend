@@ -6,9 +6,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import com.temelius.ohjelmistoprojekti1.model.Quiz;
+import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 import com.temelius.ohjelmistoprojekti1.model.Question;
 import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
-import com.temelius.ohjelmistoprojekti1.model.Answers;
+import com.temelius.ohjelmistoprojekti1.model.Answer;
 import com.temelius.ohjelmistoprojekti1.model.AnswerRepository;
 
 @SpringBootApplication
@@ -21,26 +23,46 @@ public class Ohjelmistoprojekti1Application {
 	}
 	
 	@Bean
-	public CommandLineRunner questionDemo(QuestionRepository qrepository, AnswerRepository arepository) {
+	public CommandLineRunner questionDemo(QuizRepository quizRepository, QuestionRepository qrepository, AnswerRepository arepository) {
 		return (args) -> {
 			
-			log.info("save a question");
-			qrepository.save(new Question("Mitä kuuluu?"));
-			qrepository.save(new Question("Mistä tuut?"));
+			log.info("Save a quiz");
+			quizRepository.save(new Quiz("Java kysely"));
+			quizRepository.save(new Quiz("Kuulumiskysely"));
 			
-			arepository.save(new Answers("Kukkuluuruu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
-			arepository.save(new Answers("kakkapuu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
-			arepository.save(new Answers("Keuruult", qrepository.findByQuestionline("Mistä tuut?").get(0)));
-			arepository.save(new Answers("Turuust", qrepository.findByQuestionline("Mistä tuut?").get(0)));
-
-			log.info("fetch all questions and answers in db");
-			for (Question question : qrepository.findAll( )) {
-				log.info(question.toString());
-				for (Answers answers : arepository.findAll( )) {
-					log.info(answers.toString());
-					
-				}
-			}
+			log.info("save a question");
+			qrepository.save(new Question("Mitä kuuluu?", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
+			qrepository.save(new Question("Mistä tuut?", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
+			qrepository.save(new Question("Onko java mielestäsi hauskaa?", quizRepository.findByQuizName("Java kysely").get(0)));
+			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin oletko aivan varma?", quizRepository.findByQuizName("Java kysely").get(0)));
+			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"", quizRepository.findByQuizName("Java kysely").get(0)));
+			
+			log.info("Save an answer");
+			arepository.save(new Answer("Kukkuluuruu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answer("kakkapuu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answer("Keuruult", qrepository.findByQuestionline("Mistä tuut?").get(0)));
+			arepository.save(new Answer("Turuust", qrepository.findByQuestionline("Mistä tuut?").get(0)));
+			
+			arepository.save(new Answer("Kyllä", qrepository.findByQuestionline("Onko java mielestäsi hauskaa?").get(0)));
+			arepository.save(new Answer("Ei", qrepository.findByQuestionline("Onko java mielestäsi hauskaa?").get(0)));
+			
+			arepository.save(new Answer("Kyllä", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin oletko aivan varma?").get(0)));
+			arepository.save(new Answer("Ei", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin oletko aivan varma?").get(0)));
+			
+			arepository.save(new Answer("Ok", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"").get(0)));
+			
+			log.info("fetch all quizzes, questions and answers in db");
+//			for (Quiz quiz : quizRepository.findAll()) {
+//				log.info(quiz.toString());
+//				for (Question question : qrepository.findAll( )) {
+//					log.info(question.toString());
+//					for (Answer answers : arepository.findAll( )) {
+//						log.info(answers.toString());
+//						
+//					}
+//				}
+//			}
+			
 		};
 	}
 

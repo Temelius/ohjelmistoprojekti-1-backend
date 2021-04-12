@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.temelius.ohjelmistoprojekti1.model.Answers;
+import com.temelius.ohjelmistoprojekti1.model.Answer;
 import com.temelius.ohjelmistoprojekti1.model.AnswerRepository;
 
 import com.temelius.ohjelmistoprojekti1.model.Question;
 import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
+
+import com.temelius.ohjelmistoprojekti1.model.Quiz;
+import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 
 
 @Controller
@@ -30,13 +33,20 @@ public class QuestionController {
 	@Autowired
 	private QuestionRepository qrepository;
 	
-	
+	@Autowired
+	private QuizRepository quizRepository;
 
 	// Show all questions
 	@RequestMapping(value = { "/", "/questionlist" })
 	public String QuestionList(Model model) {
 		model.addAttribute("questions", qrepository.findAll());
 		return "questionlist";
+	}
+	
+	// Get specific quiz, questions and answers
+	@GetMapping(value="/quiz/{id}")
+	public @ResponseBody List<Quiz> quizRest(@PathVariable("id") Long id) {
+		return quizRepository.findByQuizId(id);
 	}
 	
 	

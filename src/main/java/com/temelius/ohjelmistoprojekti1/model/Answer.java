@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.temelius.ohjelmistoprojekti1.model.Question;
 
 @Entity
-public class Answers {
+public class Answer {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long answerid;
@@ -23,9 +23,9 @@ public class Answers {
     @JoinColumn(name = "questionid")
     private Question question;
     
-    public Answers() {}
+    public Answer() {}
     
-    public Answers(String answerline, Question question) {
+    public Answer(String answerline, Question question) {
     	super();
     	this.answerline = answerline;
     	this.question = question;
