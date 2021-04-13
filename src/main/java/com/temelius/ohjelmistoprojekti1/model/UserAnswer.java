@@ -23,11 +23,6 @@ public class UserAnswer {
     @JoinColumn(name = "answerid")
     private Answer answer;
 	
-	@ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "questionid")
-    private Question question;
-	
 	public UserAnswer() {}
 	
 	public UserAnswer(Answer answer) {
@@ -49,14 +44,6 @@ public class UserAnswer {
 
 	public void setAnswer(Answer answer) {
 		this.answer = answer;
-	}
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
 	}
 
 	@Override

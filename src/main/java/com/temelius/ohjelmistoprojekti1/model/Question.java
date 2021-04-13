@@ -29,23 +29,12 @@ public class Question {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	private List<Answer> answers;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-	private List<UserAnswer> userAnswer;
-	
 	public Question() {}
 	
 	public Question(String questionline, Quiz quiz) {
 		super();
 		this.questionline = questionline;
 		this.quiz = quiz;
-	}
-
-	public List<UserAnswer> getUserAnswer() {
-		return userAnswer;
-	}
-
-	public void setUserAnswer(List<UserAnswer> userAnswer) {
-		this.userAnswer = userAnswer;
 	}
 
 	public Long getQuestionid() {
