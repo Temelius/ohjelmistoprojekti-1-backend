@@ -27,8 +27,7 @@ import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
 
 
 @Controller
-
-public class QuestionController {
+public class QuizController {
 	
 	@Autowired
 	private AnswerRepository arepository;
@@ -66,25 +65,6 @@ public class QuestionController {
 	public @ResponseBody List<UserAnswer> getAllAnswers() {
 		return (List<UserAnswer>) uarepository.findAll();
 	}
-	
-	
-	//RIKKINÄISIÄ EI TOIMI
-	 // Save given answer to answercount
-//	@RequestMapping(value = "/saveanswer/{id}", method = RequestMethod.GET)
-//	public String addAnswercount(@PathVariable("id") Long answerid, Model model) {
-//		model.addAttribute("answers", arepository.findById(answerid));
-//		return "saveanswer";
-//
-//	}
-//	
-//	@PostMapping(value = "/saveanswer/{id}")
-//	public String save(Answers answers) {
-//		answers.setAnswercount(1);
-//		arepository.save(answers);
-//		return "redirect:questionlist";
-//	}
-	
-	
 	
 	// RESTful service to get all questions
 	@GetMapping(value = "/questions") 
