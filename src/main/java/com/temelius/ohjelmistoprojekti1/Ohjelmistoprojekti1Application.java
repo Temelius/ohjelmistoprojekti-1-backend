@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import com.temelius.ohjelmistoprojekti1.model.User;
+import com.temelius.ohjelmistoprojekti1.model.UserRepository;
 import com.temelius.ohjelmistoprojekti1.model.Quiz;
 import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 import com.temelius.ohjelmistoprojekti1.model.Question;
@@ -25,8 +27,16 @@ public class Ohjelmistoprojekti1Application {
 	}
 	
 	@Bean
-	public CommandLineRunner questionDemo(QuizRepository quizRepository, QuestionRepository qrepository, AnswerRepository arepository, UserAnswerRepository uarepository) {
+	public CommandLineRunner questionDemo(
+			QuizRepository quizRepository, 
+			QuestionRepository qrepository, 
+			AnswerRepository arepository, 
+			UserAnswerRepository uarepository,
+			UserRepository urepository) {
 		return (args) -> {
+			
+			urepository.save(new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", "user@quizapp.fi"));
+			urepository.save(new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "admin@quizapp.fi"));
 			
 			log.info("Save a quiz");
 			quizRepository.save(new Quiz("Java kysely"));
