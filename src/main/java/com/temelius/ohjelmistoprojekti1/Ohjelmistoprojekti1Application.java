@@ -12,6 +12,8 @@ import com.temelius.ohjelmistoprojekti1.model.Question;
 import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
 import com.temelius.ohjelmistoprojekti1.model.Answer;
 import com.temelius.ohjelmistoprojekti1.model.AnswerRepository;
+import com.temelius.ohjelmistoprojekti1.model.UserAnswer;
+import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
 
 @SpringBootApplication
 public class Ohjelmistoprojekti1Application {
@@ -23,7 +25,7 @@ public class Ohjelmistoprojekti1Application {
 	}
 	
 	@Bean
-	public CommandLineRunner questionDemo(QuizRepository quizRepository, QuestionRepository qrepository, AnswerRepository arepository) {
+	public CommandLineRunner questionDemo(QuizRepository quizRepository, QuestionRepository qrepository, AnswerRepository arepository, UserAnswerRepository uarepository) {
 		return (args) -> {
 			
 			log.info("Save a quiz");
@@ -38,8 +40,8 @@ public class Ohjelmistoprojekti1Application {
 			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"", quizRepository.findByQuizName("Java kysely").get(0)));
 			
 			log.info("Save an answer");
-			arepository.save(new Answer("Kukkuluuruu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
-			arepository.save(new Answer("kakkapuu", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answer("Hyvää", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
+			arepository.save(new Answer("Huonoa", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
 			arepository.save(new Answer("Keuruult", qrepository.findByQuestionline("Mistä tuut?").get(0)));
 			arepository.save(new Answer("Turuust", qrepository.findByQuestionline("Mistä tuut?").get(0)));
 			
@@ -50,6 +52,9 @@ public class Ohjelmistoprojekti1Application {
 			arepository.save(new Answer("Ei", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin oletko aivan varma?").get(0)));
 			
 			arepository.save(new Answer("Ok", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"").get(0)));
+			
+			log.info("Save users answer");
+			uarepository.save(new UserAnswer(arepository.findByAnswerline("Turuust").get(0)));
 			
 			log.info("fetch all quizzes, questions and answers in db");
 //			for (Quiz quiz : quizRepository.findAll()) {
