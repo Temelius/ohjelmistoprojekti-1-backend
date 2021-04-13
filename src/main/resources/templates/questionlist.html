@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Kysely</title>
@@ -10,10 +10,15 @@
 </head>
 
 <body>
+<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/add}" class="btn btn-xs btn-danger">Add new Quiz</a></td>
 	<div>
+	
 		<th:block th:each="quiz : ${quizzes}">
 			<table class="rounded table table-dark table-sm">
 				<tr th:text="${quiz.quizName}"></tr>
+				
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${quiz.quizId})}" class="btn btn-xs btn-danger">Delete quiz</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/addquestion{id}(id=${quiz.quizId})}" class="btn btn-xs btn-danger">Add question</a></td>
 				<tr th:each="question : ${quiz.question}">
 					<td th:text="${question.questionline}"></td>
 					<td>

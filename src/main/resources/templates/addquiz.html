@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Add book</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /></head>
+</head>
+<body class="font-weight-normal font-italic p-3 mb-2 bg-dark text-light">
+	<h2>Add Quiz</h2>
+<br>
+	<div class="container-fluid">
+
+		<form th:object="${quiz}" th:action="@{save}" action="#" method="post">
+
+			<label for="exampleInputTitle">Enter quiz name: </label><input type="text" id="title" th:field="*{quizName}" /> <br>
+    		<br>
+			<input class="btn btn-outline-success" type="submit" value="Save"></input>
+			</form>
+
+	</div>
+</body>
+</html>
