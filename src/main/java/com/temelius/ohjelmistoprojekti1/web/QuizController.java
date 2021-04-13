@@ -49,36 +49,49 @@ public class QuizController {
 		return "questionlist";
 	}
 	
-	// Get specific quiz, questions and answers
-	@GetMapping(value="/quiz/{id}")
-	public @ResponseBody Optional<Quiz> quizRest(@PathVariable("id") Long id) {
-		return quizRepository.findById(id);
-	}
-	
-	// Get all quizzes
-	@GetMapping(value="/quizzes")
-	public @ResponseBody List<Quiz> getAllQuizzes() {
-		return (List<Quiz>) quizRepository.findAll();
-	}
-	
-	@GetMapping(value="/answers")
-	public @ResponseBody List<UserAnswer> getAllAnswers() {
-		return (List<UserAnswer>) uarepository.findAll();
-	}
+	/*
+	 * REST api
+	 */
 	
 	// RESTful service to get all questions
-	@GetMapping(value = "/questions") 
+	@GetMapping(value = "/api/questions") 
 	public @ResponseBody List<Question> questionListRest() {
 		return (List<Question>) qrepository.findAll();
 	}
-
+	
 	// RESTful service question by question id
-	@GetMapping(value = "/question/{id}")
+	@GetMapping(value = "/api/question/{id}")
 	public @ResponseBody Optional<Question> findQuestionRest(@PathVariable("id") Long id) {
 		return qrepository.findById(id);
 	}
 	
+	// RESTful service to get all quizzes
+	@GetMapping(value="/api/quiz/list")
+	public @ResponseBody List<Quiz> getAllQuizzes() {
+		return (List<Quiz>) quizRepository.findAll();
+	}
 	
+	// Get specific quiz, questions and answers
+	@GetMapping(value="/api/quiz/{id}")
+	public @ResponseBody Optional<Quiz> quizRest(@PathVariable("id") Long id) {
+		return quizRepository.findById(id);
+	}
 	
+	@GetMapping(value="/api/answers")
+	public @ResponseBody List<Answer> getAllAnswers() {
+		return (List<Answer>) arepository.findAll();
+	}
+	
+	// See all answers
+	@GetMapping(value="/api/useranswers")
+	public @ResponseBody List<UserAnswer> getAllUserAnswers() {
+		return (List<UserAnswer>) uarepository.findAll();
+	}
+	
+	// Get answer by id
+	@GetMapping(value="/api/answers/{id}")
+	public @ResponseBody Optional<Answer> answersRest(@PathVariable("id") Long id) {
+		return arepository.findById(id);
+	}
 	
 }
