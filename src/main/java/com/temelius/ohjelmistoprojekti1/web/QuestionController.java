@@ -22,6 +22,9 @@ import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
 import com.temelius.ohjelmistoprojekti1.model.Quiz;
 import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 
+import com.temelius.ohjelmistoprojekti1.model.UserAnswer;
+import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
+
 
 @Controller
 
@@ -35,10 +38,14 @@ public class QuestionController {
 	
 	@Autowired
 	private QuizRepository quizRepository;
+	
+	@Autowired
+	private UserAnswerRepository uarepository;
 
 	// Show all questions
 	@RequestMapping(value = { "/", "/questionlist" })
 	public String QuestionList(Model model) {
+		model.addAttribute("quizzes", quizRepository.findAll());
 		model.addAttribute("questions", qrepository.findAll());
 		return "questionlist";
 	}
@@ -53,6 +60,11 @@ public class QuestionController {
 	@GetMapping(value="/quizzes")
 	public @ResponseBody List<Quiz> getAllQuizzes() {
 		return (List<Quiz>) quizRepository.findAll();
+	}
+	
+	@GetMapping(value="/answers")
+	public @ResponseBody List<UserAnswer> getAllAnswers() {
+		return (List<UserAnswer>) uarepository.findAll();
 	}
 	
 	

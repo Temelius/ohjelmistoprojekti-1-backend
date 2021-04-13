@@ -11,21 +11,19 @@
 
 <body>
 	<div>
-
-<table class="rounded table table-dark table-sm">
-    <th:block th:each="question : ${questions}">
-               <td th:text="${question.questionline}"></td>
-            <tr th:each="answer: ${question.answers}">
-                <td th:text="${answer.answerline}"></td>
-                <td th:text="${answer.answercount}"></td>
-                <td> <a th:href="@{/saveanswer/{id}(id=${answer.answerid})}" >select</a></td>
-            </tr>
-       
-    </th:block>
-</table>
-
-
-
+		<th:block th:each="quiz : ${quizzes}">
+			<table class="rounded table table-dark table-sm">
+				<tr th:text="${quiz.quizName}"></tr>
+				<tr th:each="question : ${quiz.question}">
+					<td th:text="${question.questionline}"></td>
+					<td>
+						<p th:each="answer: ${question.answers}">
+							<span th:text="${answer.answerline}"></span>
+						</p>
+					</td>
+				</tr>
+			</table>
+		</th:block>
 
 
 	</div>
