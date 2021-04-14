@@ -10,9 +10,9 @@
 <br>
 	<div class="container-fluid">
 
-		<form th:object="${question, quiz}" th:action="@{/save}" action="#" method="post">
+		<form th:object="${question}" th:action="@{/save}" action="#" method="post">
 
-			<input type="hidden" id="id" th:field="*{id}"/>
+			<input type="hidden" id="id" th:field="*{quiz.quizId}"/>
 			<label for="exampleInputTitle">Enter question: </label><input type="text" id="title" th:field="*{questionline}" /> <br>
     		<br>
 			<input class="btn btn-outline-success" type="submit" value="Save"></input>
