@@ -1,19 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Add book</title>
+<title>Add Question</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /></head>
 </head>
 <body class="font-weight-normal font-italic p-3 mb-2 bg-dark text-light">
-	<h2>Add Quiz</h2>
+	<h2>Add Question</h2>
 <br>
 	<div class="container-fluid">
-
-		<form th:object="${question}" th:action="@{/save}" action="#" method="post">
-
-			<input type="hidden" id="id" th:field="*{quiz.quizId}"/>
-			<label for="exampleInputTitle">Enter question: </label><input type="text" id="title" th:field="*{questionline}" /> <br>
+		<form th:action="@{/savequestion}" action="#" method="post">
+			<input type="hidden" th:name="quizid" th:value="${quiz}" />
+			<label for="title">Enter question: </label>
+			<input id="title" type="text" th:name="questionline" />
     		<br>
 			<input class="btn btn-outline-success" type="submit" value="Save"></input>
 			</form>

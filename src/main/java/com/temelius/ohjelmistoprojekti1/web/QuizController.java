@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.temelius.ohjelmistoprojekti1.model.Answer;
@@ -58,8 +59,8 @@ public class QuizController {
 	}
 	@RequestMapping(value = { "/addquestion/{id}" })
 	public String AddQuestion(@PathVariable("id") Long quizId, Model model) {
-		model.addAttribute("question", new Question());
-		model.addAttribute("quiz", quizRepository.findById(quizId));
+//		model.addAttribute("question", new Question());
+		model.addAttribute("quiz", quizRepository.findById(quizId).get().getQuizId());
 		return "addquestion";
 	}
 
@@ -68,6 +69,18 @@ public class QuizController {
 		quizRepository.save(quiz);
 		arepository.save(answer);
 		qrepository.save(question);
+		return "redirect:questionlist";
+	}
+	
+	@PostMapping(value = "/savequestion")
+	public String saveQuestion(
+			@RequestParam(value="quizid", required=true) Long quizId,
+			@RequestParam(value="questionline", required=true) String questionline) {
+		
+		Quiz quiz = quizRepository.findById(quizId).get();
+		Question question = new Question(questionline, quiz);
+		qrepository.save(question);
+		
 		return "redirect:questionlist";
 	}
 
