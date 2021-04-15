@@ -49,14 +49,13 @@ public class QuizController {
 		model.addAttribute("questions", qrepository.findAll());
 		return "questionlist";
 	}
-	
+
 	@RequestMapping(value = { "/add" })
 	public String AddQuiz(Model model) {
 		model.addAttribute("quiz", new Quiz());
-		model.addAttribute("question", new Question());
-		model.addAttribute("answer", new Answer());
 		return "addquiz";
 	}
+
 	@RequestMapping(value = { "/addquestion/{id}" })
 	public String AddQuestion(@PathVariable("id") Long quizId, Model model) {
 //		model.addAttribute("question", new Question());
@@ -64,10 +63,14 @@ public class QuizController {
 		return "addquestion";
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Quiz quiz, Question question, Answer answer) {
+	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
+	public String save(Quiz quiz) {
 		quizRepository.save(quiz);
-		arepository.save(answer);
+		return "redirect:questionlist";
+	}
+
+	@RequestMapping(value = "/savequestion", method = RequestMethod.POST)
+	public String save(Question question) {
 		qrepository.save(question);
 		return "redirect:questionlist";
 	}
@@ -84,12 +87,19 @@ public class QuizController {
 		return "redirect:questionlist";
 	}
 
+	@RequestMapping(value = "/saveanswer", method = RequestMethod.POST)
+	public String save(Answer answer) {
+		arepository.save(answer);
+		return "redirect:questionlist";
+	}
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
 		quizRepository.deleteById(quizId);
 		return "redirect:../questionlist";
 	}
+
 	/*
 	 * REST api
 	 */
@@ -118,15 +128,22 @@ public class QuizController {
 		return quizRepository.findById(id);
 	}
 
+	// See all answers
 	@GetMapping(value = "/api/answers")
 	public @ResponseBody List<Answer> getAllAnswers() {
 		return (List<Answer>) arepository.findAll();
 	}
 
-	// See all answers
+	// See all useranswers
 	@GetMapping(value = "/api/useranswers")
 	public @ResponseBody List<UserAnswer> getAllUserAnswers() {
 		return (List<UserAnswer>) uarepository.findAll();
+	}
+
+	// Get useranswers by answer id
+	@GetMapping(value = "/api/useranswers/{id}")
+	public @ResponseBody Optional<UserAnswer> useranswersRest(@PathVariable("id") Long id) {
+		return uarepository.findById(id);
 	}
 
 	// Get answer by id

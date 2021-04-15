@@ -28,7 +28,7 @@ public class Answer {
     private Question question;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="answer")
-	private List<UserAnswer> userAnswer;
+	private List<UserAnswer> userAnswers;
     
     public Answer() {}
     
@@ -48,6 +48,14 @@ public class Answer {
 
 	public String getAnswerline() {
 		return answerline;
+	}
+	
+	public List<UserAnswer> getUserAnswers() {
+		return userAnswers;
+	}
+
+	public void setuserAnswers(List<UserAnswer> userAnswers) {
+		this.userAnswers = userAnswers;
 	}
 
 	public void setAnswerline(String answerline) {

@@ -17,6 +17,7 @@ public class UserAnswer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long userAnswerId;
+	private String userAnswerLine;
 	
 	@ManyToOne
     @JsonIgnore
@@ -25,9 +26,18 @@ public class UserAnswer {
 	
 	public UserAnswer() {}
 	
-	public UserAnswer(Answer answer) {
+	public UserAnswer(String userAnswerLine, Answer answer) {
 		super();
+		this.userAnswerLine = userAnswerLine;
 		this.answer = answer;
+	}
+
+	public String getUserAnswerLine() {
+		return userAnswerLine;
+	}
+
+	public void setUserAnswerLine(String userAnswerLine) {
+		this.userAnswerLine = userAnswerLine;
 	}
 
 	public Long getUserAnswerId() {
@@ -48,7 +58,7 @@ public class UserAnswer {
 
 	@Override
 	public String toString() {
-		return "UserAnswer [userAnswerId=" + userAnswerId + ", answer=" + answer + "]";
+		return userAnswerLine;
 	}
 	
 	

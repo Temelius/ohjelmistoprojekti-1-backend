@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<h2 sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/add}" class="btn btn-xs btn-danger">Add new Quiz</a></h2>
+<h2 sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/add}" class="btn btn-xs btn-success">Add new Quiz</a></h2>
 	<div>
 	
 		<th:block th:each="quiz : ${quizzes}">
