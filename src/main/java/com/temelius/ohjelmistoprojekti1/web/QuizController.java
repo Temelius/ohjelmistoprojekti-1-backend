@@ -64,14 +64,8 @@ public class QuizController {
 	}
 
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
-	public String save(Quiz quiz) {
+	public String saveQuiz(Quiz quiz) {
 		quizRepository.save(quiz);
-		return "redirect:questionlist";
-	}
-
-	@RequestMapping(value = "/savequestion", method = RequestMethod.POST)
-	public String save(Question question) {
-		qrepository.save(question);
 		return "redirect:questionlist";
 	}
 	
@@ -88,7 +82,7 @@ public class QuizController {
 	}
 
 	@RequestMapping(value = "/saveanswer", method = RequestMethod.POST)
-	public String save(Answer answer) {
+	public String saveAnswer(Answer answer) {
 		arepository.save(answer);
 		return "redirect:questionlist";
 	}
