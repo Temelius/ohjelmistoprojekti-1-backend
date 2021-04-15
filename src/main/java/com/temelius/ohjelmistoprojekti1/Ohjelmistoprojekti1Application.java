@@ -64,7 +64,9 @@ public class Ohjelmistoprojekti1Application {
 			arepository.save(new Answer("Ok", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"").get(0)));
 			
 			log.info("Save users answer");
-			uarepository.save(new UserAnswer(arepository.findByAnswerline("Turuust").get(0)));
+			uarepository.save(new UserAnswer("Turuust", arepository.findByAnswerline("Turuust").get(0)));
+			uarepository.save(new UserAnswer("Keuruult", arepository.findByAnswerline("Keuruult").get(0)));
+			
 			
 			log.info("fetch all quizzes, questions and answers in db");
 //			for (Quiz quiz : quizRepository.findAll()) {
