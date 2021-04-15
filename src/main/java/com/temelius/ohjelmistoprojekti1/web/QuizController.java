@@ -63,7 +63,7 @@ public class QuizController {
 		return "addquestion";
 	}
 
-	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
+	@PostMapping(value="/savequiz")
 	public String saveQuiz(Quiz quiz) {
 		quizRepository.save(quiz);
 		return "redirect:questionlist";
@@ -81,13 +81,13 @@ public class QuizController {
 		return "redirect:questionlist";
 	}
 
-	@RequestMapping(value = "/saveanswer", method = RequestMethod.POST)
+	@PostMapping(value = "/saveanswer")
 	public String saveAnswer(Answer answer) {
 		arepository.save(answer);
 		return "redirect:questionlist";
 	}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/delete/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
 		quizRepository.deleteById(quizId);
