@@ -43,11 +43,11 @@ public class QuizController {
 	private UserAnswerRepository uarepository;
 
 	// Show all questions
-	@RequestMapping(value = { "/", "/questionlist" })
-	public String QuestionList(Model model) {
+	@RequestMapping(value = { "/", "/quizlist" })
+	public String QuizList(Model model) {
 		model.addAttribute("quizzes", quizRepository.findAll());
 		model.addAttribute("questions", qrepository.findAll());
-		return "questionlist";
+		return "quizlist";
 	}
 
 	@RequestMapping(value = { "/add" })
@@ -62,11 +62,17 @@ public class QuizController {
 		model.addAttribute("quiz", quizRepository.findById(quizId).get().getQuizId());
 		return "addquestion";
 	}
+	
+	@RequestMapping(value="/addanswer/{id}")
+	public String AddAnswer(@PathVariable("id") Long questionId, Model model) {
+		model.addAttribute("question", qrepository.findById(questionId).get().getQuestionid());
+		return "addanswer";
+	}
 
 	@PostMapping(value="/savequiz")
 	public String saveQuiz(Quiz quiz) {
 		quizRepository.save(quiz);
-		return "redirect:questionlist";
+		return "redirect:quizlist";
 	}
 	
 	@PostMapping(value = "/savequestion")
@@ -78,20 +84,22 @@ public class QuizController {
 		Question question = new Question(questionline, quiz);
 		qrepository.save(question);
 		
-		return "redirect:questionlist";
+		return "redirect:quizlist";
 	}
 
 	@PostMapping(value = "/saveanswer")
-	public String saveAnswer(Answer answer) {
-		arepository.save(answer);
-		return "redirect:questionlist";
+	public String saveAnswer(@RequestParam(value="questionid") Long questionid,
+							 @RequestParam(value="answerline") String answerline) {
+		Question question = qrepository.findById(questionid).get();
+		arepository.save(new Answer(answerline, question));
+		return "redirect:quizlist";
 	}
 
 	@GetMapping(value = "/delete/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
 		quizRepository.deleteById(quizId);
-		return "redirect:../questionlist";
+		return "redirect:../quizlist";
 	}
 
 	/*
