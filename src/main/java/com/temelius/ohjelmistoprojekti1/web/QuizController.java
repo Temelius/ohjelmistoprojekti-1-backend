@@ -95,12 +95,27 @@ public class QuizController {
 		return "redirect:quizlist";
 	}
 
-	@GetMapping(value = "/delete/{id}")
-	@PreAuthorize("hasAuthority('ADMIN')")
-	public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
-		quizRepository.deleteById(quizId);
-		return "redirect:../quizlist";
-	}
+	@GetMapping(value = "/deletequiz/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
+        quizRepository.deleteById(quizId);
+        
+        return "redirect:../quizlist";
+    }
+    
+    @GetMapping(value = "/deletequestion/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteQuestion(@PathVariable("id") Long questionid, Model model) {
+        qrepository.deleteById(questionid);
+        return "redirect:../quizlist";
+    }
+    
+    @GetMapping(value = "/deleteanswer/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteAnswer(@PathVariable("id") Long answerid, Model model) {
+        arepository.deleteById(answerid);
+        return "redirect:../quizlist";
+    }
 
 	/*
 	 * REST api
