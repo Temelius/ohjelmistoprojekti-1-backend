@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,21 +41,49 @@ public class QuizController {
 
 	@Autowired
 	private UserAnswerRepository uarepository;
-
-	// Show all questions
+	
+	
+	/**
+	 * Quiz related methods
+	 */
+	
+	// Show all quizzes, questions and answers
 	@RequestMapping(value = { "/", "/quizlist" })
 	public String QuizList(Model model) {
 		model.addAttribute("quizzes", quizRepository.findAll());
 		model.addAttribute("questions", qrepository.findAll());
 		return "quizlist";
 	}
-
+	
+	// Add new quiz
 	@RequestMapping(value = { "/add" })
 	public String AddQuiz(Model model) {
 		model.addAttribute("quiz", new Quiz());
 		return "addquiz";
 	}
-
+	
+	// Save newly added quiz
+	@PostMapping(value="/savequiz")
+	public String saveQuiz(Quiz quiz) {
+		quizRepository.save(quiz);
+		return "redirect:quizlist";
+	}
+	
+	// Delete quiz by id
+	@GetMapping(value = "/deletequiz/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
+		quizRepository.deleteById(quizId);
+		
+		return "redirect:../quizlist";
+	}
+	
+	
+	/**
+	 * Question related methods
+	 */
+	
+	// Add new question, pass quizId to page
 	@RequestMapping(value = { "/addquestion/{id}" })
 	public String AddQuestion(@PathVariable("id") Long quizId, Model model) {
 //		model.addAttribute("question", new Question());
@@ -64,18 +91,7 @@ public class QuizController {
 		return "addquestion";
 	}
 	
-	@RequestMapping(value="/addanswer/{id}")
-	public String AddAnswer(@PathVariable("id") Long questionId, Model model) {
-		model.addAttribute("question", qrepository.findById(questionId).get().getQuestionid());
-		return "addanswer";
-	}
-
-	@PostMapping(value="/savequiz")
-	public String saveQuiz(Quiz quiz) {
-		quizRepository.save(quiz);
-		return "redirect:quizlist";
-	}
-	
+	// Save newly added question
 	@PostMapping(value = "/savequestion")
 	public String saveQuestion(
 			@RequestParam(value="quizid", required=true) Long quizId,
@@ -87,7 +103,28 @@ public class QuizController {
 		
 		return "redirect:quizlist";
 	}
-
+	
+	// Delete question by id
+	@GetMapping(value = "/deletequestion/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deleteQuestion(@PathVariable("id") Long questionid, Model model) {
+		qrepository.deleteById(questionid);
+		return "redirect:../quizlist";
+	}
+	
+	
+	/**
+	 * Answer related methods
+	 */	
+	
+	// Add new answer, pass questionId to page
+	@RequestMapping(value="/addanswer/{id}")
+	public String AddAnswer(@PathVariable("id") Long questionId, Model model) {
+		model.addAttribute("question", qrepository.findById(questionId).get().getQuestionid());
+		return "addanswer";
+	}
+	
+	// Save newly added answer
 	@PostMapping(value = "/saveanswer")
 	public String saveAnswer(@RequestParam(value="questionid") Long questionid,
 							 @RequestParam(value="answerline") String answerline) {
@@ -95,35 +132,21 @@ public class QuizController {
 		arepository.save(new Answer(answerline, question));
 		return "redirect:quizlist";
 	}
-
-	@GetMapping(value = "/deletequiz/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteQuiz(@PathVariable("id") Long quizId, Model model) {
-        quizRepository.deleteById(quizId);
-        
-        return "redirect:../quizlist";
-    }
     
-    @GetMapping(value = "/deletequestion/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteQuestion(@PathVariable("id") Long questionid, Model model) {
-        qrepository.deleteById(questionid);
-        return "redirect:../quizlist";
-    }
-    
+    // Delete answer by id
     @GetMapping(value = "/deleteanswer/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteAnswer(@PathVariable("id") Long answerid, Model model) {
         arepository.deleteById(answerid);
         return "redirect:../quizlist";
     }
+    
 
-	/*
+	/**
 	 * REST api
 	 */
 
 	// RESTful service to get all questions
-    
 	@CrossOrigin
 	@GetMapping(value = "/api/questions")
 	public @ResponseBody List<Question> questionListRest() {
