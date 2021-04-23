@@ -67,6 +67,7 @@ API pyynnöt ovat sallittuja osoitteeseen `https://ohjelmistoprojekti-1-backend.
 
 ### Get all questions & question by id
 `/api/questions`
+
 `/api/question/{id}` palauttaa yhden questionin id:n perusteella.
 ```json
 [
@@ -90,6 +91,7 @@ API pyynnöt ovat sallittuja osoitteeseen `https://ohjelmistoprojekti-1-backend.
 ```
 ### Get all answers & answer by id
 `/api/answers`
+
 `/api/answers/{id}` palauttaa yhden answerin id:n perusteella.
 ```json
 [
@@ -108,6 +110,7 @@ API pyynnöt ovat sallittuja osoitteeseen `https://ohjelmistoprojekti-1-backend.
 ### Get all useranswers & useranswers by id
 
 `/api/useranswers`
+
 `/api/useranswers/{id}` palauttaa yhden useranswerin id:n perusteella.
 ```json
 [
