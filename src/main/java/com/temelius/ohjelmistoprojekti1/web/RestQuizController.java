@@ -128,12 +128,12 @@ public class RestQuizController {
 		return uarepository.findById(id);
 	}
 	
-	// Post useranswer
-		@CrossOrigin
-		@RequestMapping(value="/add", method = RequestMethod.POST)
-	    public @ResponseBody UserAnswer saveUserAnswerRest(@RequestBody UserAnswer useranswer) {	
-	    	return uarepository.save(useranswer);
-	    }
+	
 
+		@CrossOrigin
+		@PostMapping(value="/useranswers")
+		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
+		    return uarepository.save(newUserAnswer);
+		  }
 
 }
