@@ -35,7 +35,7 @@ import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 import com.temelius.ohjelmistoprojekti1.model.UserAnswer;
 import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin
 @RestController
 @RequestMapping("api")
 public class RestQuizController {
@@ -131,7 +131,7 @@ public class RestQuizController {
 	
 	
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin (origins = "http://localhost:3000/")
 		@PostMapping(value="/useranswers")
 		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
 		    return uarepository.save(newUserAnswer);
