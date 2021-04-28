@@ -35,6 +35,7 @@ import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 import com.temelius.ohjelmistoprojekti1.model.UserAnswer;
 import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("api")
 public class RestQuizController {
