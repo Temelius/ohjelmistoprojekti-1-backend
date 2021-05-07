@@ -129,11 +129,11 @@ public class RestQuizController {
 		return uarepository.findById(id);
 	}
 	
-	
-	@CrossOrigin
+
+	@CrossOrigin 
 		@PostMapping(value="/useranswers")
-		UserAnswer newUserAnswer(@RequestBody String newUserAnswer) {
-		    return uarepository.save(newUserAnswer, arepository.findByAnswerline(newUserAnswer).get(0));
+		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
+		    return uarepository.save(newUserAnswer);
 		  }
 
 }
