@@ -103,7 +103,7 @@ public class QuizController {
 		
 		Question savedQuestion = qrepository.save(question);
 		
-		if (questionType == "text") {
+		if (questionType.equals("text")) {
 			arepository.save(new Answer("placeholder", savedQuestion));
 		}
 		
