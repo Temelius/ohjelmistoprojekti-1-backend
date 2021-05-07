@@ -100,7 +100,12 @@ public class QuizController {
 		
 		Quiz quiz = quizRepository.findById(quizId).get();
 		Question question = new Question(questionline, questionType, quiz);
-		qrepository.save(question);
+		
+		Question savedQuestion = qrepository.save(question);
+		
+		if (questionType == "text") {
+			arepository.save(new Answer("placeholder", savedQuestion));
+		}
 		
 		return "redirect:quizlist";
 	}
