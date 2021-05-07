@@ -133,7 +133,7 @@ public class RestQuizController {
 	@CrossOrigin (origins = "*")
 		@PostMapping(value="/useranswers")
 		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
-		    return uarepository.save(newUserAnswer);
+		    return uarepository.save(newUserAnswer, arepository.findByAnswerline(newUserAnswer.toString()).get(0));
 		  }
 
 }
