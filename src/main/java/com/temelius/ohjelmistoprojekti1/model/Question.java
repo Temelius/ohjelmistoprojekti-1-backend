@@ -20,8 +20,9 @@ public class Question {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long questionid;
 	private String questionline;
-	
-    @ManyToOne
+	private String questionType;
+
+	@ManyToOne
     @JsonIgnore
     @JoinColumn(name = "quizId")
     private Quiz quiz;
@@ -31,9 +32,10 @@ public class Question {
 	
 	public Question() {}
 	
-	public Question(String questionline, Quiz quiz) {
+	public Question(String questionline, String questionType, Quiz quiz) {
 		super();
 		this.questionline = questionline;
+		this.questionType = questionType;
 		this.quiz = quiz;
 	}
 
@@ -51,6 +53,14 @@ public class Question {
 
 	public void setQuestionline(String questionline) {
 		this.questionline = questionline;
+	}
+	
+	public String getQuestionType() {
+		return questionType;
+	}
+	
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
 	}
 
 	public List<Answer> getAnswers() {
