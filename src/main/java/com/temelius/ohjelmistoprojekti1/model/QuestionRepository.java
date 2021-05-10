@@ -8,5 +8,5 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 	List<Question>findByQuestionline(String questionline);
 	
 	// TODO
-	List<Question>findAllByQuizId(Long quizId);
+	//List<Question>findAllByQuizId(Long quizId);
 }

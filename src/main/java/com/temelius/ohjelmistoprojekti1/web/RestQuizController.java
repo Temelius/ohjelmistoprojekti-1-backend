@@ -94,11 +94,11 @@ public class RestQuizController {
 	}
 	
 	// TODO RESTful service to get all questions by quizId
-	@CrossOrigin
-	@GetMapping(value="/questions/{quizId}", produces="application/json")
-	public List<Question> getAllQuestionsByQuiz(@PathVariable("quizId") Long quizId) {
-		return (List<Question>) qrepository.findAllByQuizId(quizId);
-	}
+//	@CrossOrigin
+//	@GetMapping(value="/questions/{quizId}", produces="application/json")
+//	public List<Question> getAllQuestionsByQuiz(@PathVariable("quizId") Long quizId) {
+//		return (List<Question>) qrepository.findAllByQuizId(quizId);
+//	}
 
 	// RESTful service question by question id
 	@CrossOrigin
