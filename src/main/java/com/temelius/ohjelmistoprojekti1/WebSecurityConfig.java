@@ -43,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .permitAll();
     }
     
+    // Fix CORS related errors on front-end.. MAYBE. 
+    // "Very promising" -Joonas
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

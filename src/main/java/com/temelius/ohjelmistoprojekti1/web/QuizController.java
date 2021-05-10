@@ -102,7 +102,8 @@ public class QuizController {
 		Question question = new Question(questionline, questionType, quiz);
 		
 		Question savedQuestion = qrepository.save(question);
-		
+		// Jos kysymyksen tyyppi on vapaamuotoinen tekstikenttä
+		//  tallennetaan placeholder vastaus useranswereitä varten.
 		if (questionType.equals("text")) {
 			arepository.save(new Answer("placeholder", savedQuestion));
 		}

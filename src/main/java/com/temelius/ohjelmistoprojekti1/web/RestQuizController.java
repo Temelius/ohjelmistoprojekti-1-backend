@@ -92,6 +92,13 @@ public class RestQuizController {
 	public List<Question> getAllQuestions() {
 		return (List<Question>) qrepository.findAll();
 	}
+	
+	// RESTful service to get all questions by quizId
+	@CrossOrigin
+	@GetMapping(value="/questions/{quizId}", produces="application/json")
+	public List<Question> getAllQuestionsByQuiz(@PathVariable("quizId") Long quizId) {
+		return (List<Question>) qrepository.findAllByQuiz(quizId);
+	}
 
 	// RESTful service question by question id
 	@CrossOrigin
@@ -131,9 +138,9 @@ public class RestQuizController {
 	
 
 	@CrossOrigin 
-		@PostMapping(value="/useranswers")
-		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
-		    return uarepository.save(newUserAnswer);
-		  }
+	@PostMapping(value="/useranswers")
+	UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
+		return uarepository.save(newUserAnswer);
+	}
 
 }
