@@ -24,9 +24,6 @@ import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
 import com.temelius.ohjelmistoprojekti1.model.Quiz;
 import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 
-import com.temelius.ohjelmistoprojekti1.model.UserAnswer;
-import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
-
 @Controller
 public class QuizController {
 
@@ -39,9 +36,6 @@ public class QuizController {
 	@Autowired
 	private QuizRepository quizRepository;
 
-	@Autowired
-	private UserAnswerRepository uarepository;
-	
 	
 	/**
 	 * Quiz related methods
