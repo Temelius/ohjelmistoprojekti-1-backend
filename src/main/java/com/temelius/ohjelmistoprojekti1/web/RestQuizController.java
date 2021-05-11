@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -132,8 +133,12 @@ public class RestQuizController {
 
 	@CrossOrigin 
 		@PostMapping(value="/useranswers")
-		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
-		    return uarepository.save(newUserAnswer);
+		public UserAnswer newUserAnswer(@RequestBody String json) {
+			JSONObject obj = new JSONObject(json);
+			String userAnswerLine = obj.getString("userAnswerLine");
+			Answer answer = arepository.findById(Long.parseLong(obj.getJSONObject("answer").getString("answerid"))).get();
+			
+		    return uarepository.save(new UserAnswer(userAnswerLine, answer));
 		  }
 
 }
