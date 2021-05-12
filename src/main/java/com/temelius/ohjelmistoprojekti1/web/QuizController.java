@@ -24,6 +24,9 @@ import com.temelius.ohjelmistoprojekti1.model.QuestionRepository;
 import com.temelius.ohjelmistoprojekti1.model.Quiz;
 import com.temelius.ohjelmistoprojekti1.model.QuizRepository;
 
+import com.temelius.ohjelmistoprojekti1.model.UserAnswer;
+import com.temelius.ohjelmistoprojekti1.model.UserAnswerRepository;
+
 @Controller
 public class QuizController {
 
@@ -36,6 +39,9 @@ public class QuizController {
 	@Autowired
 	private QuizRepository quizRepository;
 
+	@Autowired
+	private UserAnswerRepository uarepository;
+	
 	
 	/**
 	 * Quiz related methods
@@ -89,11 +95,14 @@ public class QuizController {
 	@PostMapping(value = "/savequestion")
 	public String saveQuestion(
 			@RequestParam(value="quizid", required=true) Long quizId,
-			@RequestParam(value="questionline", required=true) String questionline) {
+			@RequestParam(value="questionline", required=true) String questionline,
+			@RequestParam(value="questionType", required=true) String questionType) {
 		
 		Quiz quiz = quizRepository.findById(quizId).get();
-		Question question = new Question(questionline, quiz);
+		Question question = new Question(questionline, questionType, quiz);
+		
 		qrepository.save(question);
+		
 		
 		return "redirect:quizlist";
 	}

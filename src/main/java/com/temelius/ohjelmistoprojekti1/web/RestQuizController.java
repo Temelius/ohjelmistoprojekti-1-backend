@@ -3,6 +3,7 @@ package com.temelius.ohjelmistoprojekti1.web;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.json.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -129,11 +130,26 @@ public class RestQuizController {
 		return uarepository.findById(id);
 	}
 	
-
+	
+	
+	
+	// POST FOR TEXT ANSWERS
 	@CrossOrigin 
-		@PostMapping(value="/useranswers")
-		UserAnswer newUserAnswer(@RequestBody UserAnswer newUserAnswer) {
-		    return uarepository.save(newUserAnswer);
-		  }
+	@PostMapping(value="/answers")
+	public Answer newAnswer(@RequestBody String json) {
+		JSONObject obj = new JSONObject(json);
+		String answerline = obj.getString("answerline");
+	    return arepository.save(new Answer(answerline, qrepository.findById(Long.parseLong(obj.getJSONObject("question").getString("questionid"))).get()));
+	  }
+	
+	
+	// POST FOR USERANSWERS
+	@CrossOrigin 
+	@PostMapping(value="/useranswers")
+	public UserAnswer newUserAnswer(@RequestBody String json) {
+		JSONObject obj = new JSONObject(json);
+		String userAnswerLine = obj.getString("userAnswerLine");
+	    return uarepository.save(new UserAnswer(userAnswerLine, arepository.findById(Long.parseLong(obj.getJSONObject("answer").getString("answerid"))).get()));
+	  }
 
 }
