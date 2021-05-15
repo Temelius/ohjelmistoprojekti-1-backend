@@ -77,7 +77,8 @@ public class RestQuizController {
 	@CrossOrigin
 	@GetMapping(value = "/quiz/list", produces = "application/json")
 	public List<Quiz> getAllQuizzes() {
-		return (List<Quiz>) quizRepository.findAll();
+		
+		return (List<Quiz>) quizRepository.findByActive(true);
 	}
 	
 	// Get specific quiz, questions and answers
