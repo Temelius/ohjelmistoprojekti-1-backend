@@ -45,8 +45,8 @@ public class Ohjelmistoprojekti1Application {
 			urepository.save(new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "admin@quizapp.fi"));
 			
 			log.info("Save a quiz");
-			quizRepository.save(new Quiz("Java kysely"));
-			quizRepository.save(new Quiz("Kuulumiskysely"));
+			quizRepository.save(new Quiz("Java kysely", true));
+			quizRepository.save(new Quiz("Kuulumiskysely", true));
 			
 			log.info("save a question");
 			qrepository.save(new Question("Mitä kuuluu?", "radio", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
