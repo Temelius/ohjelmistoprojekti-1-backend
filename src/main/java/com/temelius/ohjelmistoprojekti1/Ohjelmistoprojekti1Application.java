@@ -45,12 +45,14 @@ public class Ohjelmistoprojekti1Application {
 			urepository.save(new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "admin@quizapp.fi"));
 			
 			log.info("Save a quiz");
-			quizRepository.save(new Quiz("Java kysely"));
-			quizRepository.save(new Quiz("Kuulumiskysely"));
+			quizRepository.save(new Quiz("Java kysely", true));
+			quizRepository.save(new Quiz("Kuulumiskysely", true));
 			
 			log.info("save a question");
 			qrepository.save(new Question("Mitä kuuluu?", "radio", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
-			qrepository.save(new Question("Mistä tuut?", "radio", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
+			qrepository.save(new Question("Missä kaupungissa asut?", "text", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
+			qrepository.save(new Question("Onko sinulla nälkä?", "radio", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
+
 			qrepository.save(new Question("Onko java mielestäsi hauskaa?", "radio", quizRepository.findByQuizName("Java kysely").get(0)));
 			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin oletko aivan varma?", "radio", quizRepository.findByQuizName("Java kysely").get(0)));
 			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"", "radio", quizRepository.findByQuizName("Java kysely").get(0)));
@@ -58,8 +60,10 @@ public class Ohjelmistoprojekti1Application {
 			log.info("Save an answer");
 			arepository.save(new Answer("Hyvää", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
 			arepository.save(new Answer("Huonoa", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
-			arepository.save(new Answer("Keuruult", qrepository.findByQuestionline("Mistä tuut?").get(0)));
-			arepository.save(new Answer("Turuust", qrepository.findByQuestionline("Mistä tuut?").get(0)));
+			arepository.save(new Answer("Ei ole", qrepository.findByQuestionline("Onko sinulla nälkä?").get(0)));
+			arepository.save(new Answer("Pikku hiljaa...", qrepository.findByQuestionline("Onko sinulla nälkä?").get(0)));
+			arepository.save(new Answer("Näännyn kohta!", qrepository.findByQuestionline("Onko sinulla nälkä?").get(0)));
+			
 			
 			arepository.save(new Answer("Kyllä", qrepository.findByQuestionline("Onko java mielestäsi hauskaa?").get(0)));
 			arepository.save(new Answer("Ei", qrepository.findByQuestionline("Onko java mielestäsi hauskaa?").get(0)));
@@ -70,8 +74,9 @@ public class Ohjelmistoprojekti1Application {
 			arepository.save(new Answer("Ok", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"").get(0)));
 			
 			log.info("Save users answer");
-			uarepository.save(new UserAnswer("Turuust", arepository.findByAnswerline("Turuust").get(0)));
-			uarepository.save(new UserAnswer("Keuruult", arepository.findByAnswerline("Keuruult").get(0)));
+			uarepository.save(new UserAnswer("Ei ole", arepository.findByAnswerline("Ei ole").get(0)));
+			uarepository.save(new UserAnswer("Pikku hiljaa...", arepository.findByAnswerline("Pikku hiljaa...").get(0)));
+			uarepository.save(new UserAnswer("Näännyn kohta!", arepository.findByAnswerline("Näännyn kohta!").get(0)));
 			
 			
 			log.info("fetch all quizzes, questions and answers in db");

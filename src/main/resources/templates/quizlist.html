@@ -6,6 +6,8 @@
 <head>
 <title>Kysely</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}">
 </head>
@@ -21,10 +23,16 @@
 					<tr>
 						<th scope="col">
 						<span th:text="${quiz.quizName}"></span>
+						<br />
 						<a th:href="@{/deletequiz/{id}(id=${quiz.quizId})}"
 							class="btn btn-xs btn-danger" sec:authorize="hasAuthority('ADMIN')">Delete quiz</a>
 						<a th:href="@{/addquestion/{id}(id=${quiz.quizId})}"
 							class="btn btn-xs btn-success" sec:authorize="hasAuthority('ADMIN')">Add Question</a>
+							
+						<a th:if="${quiz.active}" th:href="@{/setinactive/{id}(id=${quiz.quizId})}"
+							class="btn btn-xs btn-danger">Disable quiz</a>
+						<a th:unless="${quiz.active}" th:href="@{/setactive/{id}(id=${quiz.quizId})}"
+							class="btn btn-xs btn-success">Activate quiz</a>
 						</th>
 						
 						<th scope="col">Question</th>

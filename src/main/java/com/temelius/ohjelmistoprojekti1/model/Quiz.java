@@ -15,6 +15,7 @@ public class Quiz {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long quizId;
 	private String quizName;
+	private boolean active;
 	// Tarvitaanko esim. quiz author tms.
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="quiz")
@@ -22,9 +23,18 @@ public class Quiz {
 	
 	public Quiz() {}
 	
-	public Quiz(String quizName) {
+	public Quiz(String quizName, boolean active) {
 		super();
 		this.quizName = quizName;
+		this.active = active;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public Long getQuizId() {

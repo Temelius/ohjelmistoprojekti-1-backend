@@ -14,6 +14,7 @@
 
 			<label for="exampleInputTitle">Enter quiz name: </label><input type="text" id="title" th:field="*{quizName}" /> <br>
     		<br>
+    		<input type="hidden" id="active" th:field="*{active}" value="true" />
 			<input class="btn btn-success" type="submit" value="Save"></input>
 			</form>
 
