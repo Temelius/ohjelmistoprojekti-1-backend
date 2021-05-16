@@ -45,17 +45,23 @@ public class Ohjelmistoprojekti1Application {
 			urepository.save(new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", "admin@quizapp.fi"));
 			
 			log.info("Save a quiz");
-			quizRepository.save(new Quiz("Java kysely", true));
+			quizRepository.save(new Quiz("Ohjelmointikysely", true));
 			quizRepository.save(new Quiz("Kuulumiskysely", true));
+			quizRepository.save(new Quiz("Harrastuskysely", true));
 			
 			log.info("save a question");
 			qrepository.save(new Question("Mitä kuuluu?", "radio", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
 			qrepository.save(new Question("Missä kaupungissa asut?", "text", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
 			qrepository.save(new Question("Onko sinulla nälkä?", "radio", quizRepository.findByQuizName("Kuulumiskysely").get(0)));
 
-			qrepository.save(new Question("Onko java mielestäsi hauskaa?", "radio", quizRepository.findByQuizName("Java kysely").get(0)));
-			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin oletko aivan varma?", "radio", quizRepository.findByQuizName("Java kysely").get(0)));
-			qrepository.save(new Question("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"", "radio", quizRepository.findByQuizName("Java kysely").get(0)));
+			qrepository.save(new Question("Mikä näistä ohjelmointikielistä on sinulle mieluisin?", "radio", quizRepository.findByQuizName("Ohjelmointikysely").get(0)));
+			qrepository.save(new Question("Mihin haluaisit työllistyä tällä hetkellä?", "radio", quizRepository.findByQuizName("Ohjelmointikysely").get(0)));
+			qrepository.save(new Question("Mikä ohjelmointikieli on tuntunut sinusta helpoimmalta?", "text", quizRepository.findByQuizName("Ohjelmointikysely").get(0)));
+			qrepository.save(new Question("Montako vuotta sinulla on kokemusta ohjelmoinnista?", "text", quizRepository.findByQuizName("Ohjelmointikysely").get(0)));
+			
+			qrepository.save(new Question("Pelaatko videopelejä?", "radio", quizRepository.findByQuizName("Harrastuskysely").get(0)));
+			qrepository.save(new Question("Harrastatko fyysistä liikuntaa?", "radio", quizRepository.findByQuizName("Harrastuskysely").get(0)));
+			qrepository.save(new Question("Mikä on mieleisin harrastuksesi?", "text", quizRepository.findByQuizName("Harrastuskysely").get(0)));
 			
 			log.info("Save an answer");
 			arepository.save(new Answer("Hyvää", qrepository.findByQuestionline("Mitä kuuluu?").get(0)));
@@ -64,19 +70,28 @@ public class Ohjelmistoprojekti1Application {
 			arepository.save(new Answer("Pikku hiljaa...", qrepository.findByQuestionline("Onko sinulla nälkä?").get(0)));
 			arepository.save(new Answer("Näännyn kohta!", qrepository.findByQuestionline("Onko sinulla nälkä?").get(0)));
 			
+			arepository.save(new Answer("PHP", qrepository.findByQuestionline("Mikä näistä ohjelmointikielistä on sinulle mieluisin?").get(0)));
+			arepository.save(new Answer("JavaScript", qrepository.findByQuestionline("Mikä näistä ohjelmointikielistä on sinulle mieluisin?").get(0)));
+			arepository.save(new Answer("C", qrepository.findByQuestionline("Mikä näistä ohjelmointikielistä on sinulle mieluisin?").get(0)));
+			arepository.save(new Answer("Java", qrepository.findByQuestionline("Mikä näistä ohjelmointikielistä on sinulle mieluisin?").get(0)));
+			arepository.save(new Answer("Python", qrepository.findByQuestionline("Mikä näistä ohjelmointikielistä on sinulle mieluisin?").get(0)));
 			
-			arepository.save(new Answer("Kyllä", qrepository.findByQuestionline("Onko java mielestäsi hauskaa?").get(0)));
-			arepository.save(new Answer("Ei", qrepository.findByQuestionline("Onko java mielestäsi hauskaa?").get(0)));
+			arepository.save(new Answer("Front end", qrepository.findByQuestionline("Mihin haluaisit työllistyä tällä hetkellä?").get(0)));
+			arepository.save(new Answer("Back end", qrepository.findByQuestionline("Mihin haluaisit työllistyä tällä hetkellä?").get(0)));
+			arepository.save(new Answer("Full Stack", qrepository.findByQuestionline("Mihin haluaisit työllistyä tällä hetkellä?").get(0)));
 			
-			arepository.save(new Answer("Kyllä", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin oletko aivan varma?").get(0)));
-			arepository.save(new Answer("Ei", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin oletko aivan varma?").get(0)));
+			arepository.save(new Answer("Usein", qrepository.findByQuestionline("Pelaatko videopelejä?").get(0)));
+			arepository.save(new Answer("Joskus", qrepository.findByQuestionline("Pelaatko videopelejä?").get(0)));
+			arepository.save(new Answer("En pelaa", qrepository.findByQuestionline("Pelaatko videopelejä?").get(0)));
 			
-			arepository.save(new Answer("Ok", qrepository.findByQuestionline("Jos vastasit edelliseen kyllä, niin vastauksesi on automaattisesti muutettu \"ei\"").get(0)));
+			arepository.save(new Answer("Säännöllisesti", qrepository.findByQuestionline("Harrastatko fyysistä liikuntaa?").get(0)));
+			arepository.save(new Answer("Turhan harvoin", qrepository.findByQuestionline("Harrastatko fyysistä liikuntaa?").get(0)));
+			arepository.save(new Answer("En ollenkaan", qrepository.findByQuestionline("Harrastatko fyysistä liikuntaa?").get(0)));
 			
 			log.info("Save users answer");
-			uarepository.save(new UserAnswer("Ei ole", arepository.findByAnswerline("Ei ole").get(0)));
-			uarepository.save(new UserAnswer("Pikku hiljaa...", arepository.findByAnswerline("Pikku hiljaa...").get(0)));
-			uarepository.save(new UserAnswer("Näännyn kohta!", arepository.findByAnswerline("Näännyn kohta!").get(0)));
+//			uarepository.save(new UserAnswer("Ei ole", arepository.findByAnswerline("Ei ole").get(0)));
+//			uarepository.save(new UserAnswer("Pikku hiljaa...", arepository.findByAnswerline("Pikku hiljaa...").get(0)));
+//			uarepository.save(new UserAnswer("Näännyn kohta!", arepository.findByAnswerline("Näännyn kohta!").get(0)));
 			
 			
 			log.info("fetch all quizzes, questions and answers in db");
